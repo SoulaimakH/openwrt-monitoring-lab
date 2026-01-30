@@ -1,0 +1,16 @@
+services:
+
+  suricata:
+    image: jasonish/suricata:latest
+    container_name: suricata
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./etc-suricata:/etc/suricata
+      - ./logs-suricata:/var/log/suricata
+      - ./varsuricata:/var/lib/suricata
+    command: >
+      suricata -i enp0s10
+    restart: unless-stopped
