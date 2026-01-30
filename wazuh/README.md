@@ -121,10 +121,13 @@ Restart Wazuh Manager
 ```
 docker compose restart wazuh-manager
 ```
+
 ### Verification
 Check Wazuh Logs
 docker logs wazuh-manager
 Ensure there are no JSON decoding errors.
+
+<img width="1427" height="592" alt="image" src="https://github.com/user-attachments/assets/ddbeab1f-00b0-4577-a13c-f996463b4b56" />
 
 
 ### Notes
