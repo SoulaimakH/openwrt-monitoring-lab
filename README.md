@@ -1,7 +1,4 @@
 # OpenWRT – Suricata – Wazuh Security Monitoring Lab
-##  Architecture
-
-![Network Diagram](archi.png)
 
 ([demo video](https://1drv.ms/v/c/1e4f43606a99e40f/IQCUqWb0N___SYkuLzg0T-M3AWgWBU3B8llT6WEnyervUZU?e=08njB3))
 [![Watch the demo](wazuh.png)](https://1drv.ms/v/c/1e4f43606a99e40f/IQCUqWb0N___SYkuLzg0T-M3AWgWBU3B8llT6WEnyervUZU?e=08njB3)
@@ -45,6 +42,9 @@ The lab environment is hosted on VirtualBox, including three VMs: OpenWRT (route
   - Vulnerability scanning & attack simulation
 
 
+##  Architecture
+
+![Network Diagram](archi.png)
 
 ## Traffic Flow
 
