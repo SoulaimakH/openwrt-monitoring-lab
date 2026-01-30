@@ -2,18 +2,30 @@
 ([demo video](https://1drv.ms/v/c/1e4f43606a99e40f/IQCUqWb0N___SYkuLzg0T-M3AWgWBU3B8llT6WEnyervUZU?e=08njB3))
 [![Watch the demo](wazuh.png)](https://1drv.ms/v/c/1e4f43606a99e40f/IQCUqWb0N___SYkuLzg0T-M3AWgWBU3B8llT6WEnyervUZU?e=08njB3)
 
-##  Project Overview
+##  About This Project
 
-This project demonstrates a **network security monitoring lab** where:
+**Network Security Monitoring Lab** is a hands-on, end-to-end lab environment designed to simulate real-world cybersecurity operations.  
+It demonstrates the integration of **network traffic analysis, intrusion detection, and security information and event management (SIEM)** in a controlled environment.
 
-- **OpenWRT** acts as the gateway router
-- **Traffic is mirrored (SPAN)** from OpenWRT
-- **Suricata IDS** is deployed in Docker on an **Ubuntu server**
-- **Wazuh SIEM** collects and visualizes security alerts
-- **Kali Linux** is used to generate attacks and test vulnerabilities
+The lab uses:
 
-The goal is to simulate real-world attacks and verify detection using IDS and SIEM tools.
+- **OpenWRT VM** as a router and traffic mirroring device
+- **Ubuntu VM** hosting **Suricata IDS** and **Wazuh SIEM**
+- **Kali Linux VM** for penetration testing and attack simulation
 
+Key features:
+
+- Traffic mirroring from OpenWRT to Suricata for passive network monitoring
+- Detection of real-world attacks such as port scans, brute-force attempts, and web vulnerability scans
+- Centralized alert analysis and visualization via Wazuh Dashboard
+- JSON-based integration of Suricata EVE logs for rich context and accurate detection
+- Fully virtualized setup with reproducible VirtualBox VMs
+
+This project serves as:
+
+- A **learning platform** for SOC analysts and cybersecurity students
+- A **demonstration environment** for intrusion detection and SIEM integration
+  
 The lab environment is hosted on VirtualBox, including three VMs: OpenWRT (router and traffic mirroring), Ubuntu 22.04 (Suricata IDS + Wazuh SIEM), and Kali Linux (attack simulation) with network interfaces configured for public LAN and private monitoring networks.
 
 ##  Architecture
