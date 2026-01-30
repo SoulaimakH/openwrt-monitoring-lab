@@ -45,10 +45,6 @@ opkg install kmod-ipt-tee iptables-mod-tee
 opkg install tcpdump netcat
 ```
 
-### Verify TEE module:
-```bash
-lsmod | grep tee
-```
 ### Configure Traffic Mirroring (iptables TEE)
 - Mirror outbound traffic
 ```bash
@@ -66,14 +62,8 @@ Original traffic continues normally.
  iptables -t mangle -L -v -n
 ```
 
-Expected output example:
+<img width="1912" height="457" alt="image" src="https://github.com/user-attachments/assets/7079e8de-a64b-4e00-9bbd-a6b4e2a81827" />
 
-Chain PREROUTING (policy ACCEPT)
- pkts bytes target     prot opt in     out     source      destination
-  120  9600 TEE        all  --  *      *       0.0.0.0/0   0.0.0.0/0  TEE gw:10.0.3.15
-
-Chain POSTROUTING (policy ACCEPT)
-  115  9200 TEE        all  --  *      *       0.0.0.0/0   0.0.0.0/0  TEE gw:10.0.3.15
 
 ### Test Traffic Mirroring On OpenWRT
 ```bash
