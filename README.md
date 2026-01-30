@@ -1,4 +1,6 @@
 # OpenWRT – Suricata – Wazuh Security Monitoring Lab
+([demo video](https://1drv.ms/v/c/1e4f43606a99e40f/IQCUqWb0N___SYkuLzg0T-M3AWgWBU3B8llT6WEnyervUZU?e=08njB3))
+[![Watch the demo](wazuh.png)](https://1drv.ms/v/c/1e4f43606a99e40f/IQCUqWb0N___SYkuLzg0T-M3AWgWBU3B8llT6WEnyervUZU?e=08njB3)
 
 ##  Project Overview
 
@@ -11,6 +13,8 @@ This project demonstrates a **network security monitoring lab** where:
 - **Kali Linux** is used to generate attacks and test vulnerabilities
 
 The goal is to simulate real-world attacks and verify detection using IDS and SIEM tools.
+
+The lab environment is hosted on VirtualBox, including three VMs: OpenWRT (router and traffic mirroring), Ubuntu 22.04 (Suricata IDS + Wazuh SIEM), and Kali Linux (attack simulation) with network interfaces configured for public LAN and private monitoring networks.
 
 ##  Architecture
 
@@ -50,7 +54,48 @@ The goal is to simulate real-world attacks and verify detection using IDS and SI
 - Nmap, Nikto, Hydra
 
 
+OpenWRT is installed as a virtual router using an official OpenWRT disk image converted to VirtualBox format.
 
+## OpenWRT Image Source
+
+The OpenWRT image was downloaded from the official archive:[vdi](https://archive.openwrt.org/releases/19.07.10/targets/x86/64/)
+
+```
+openwrt-19.07.10-x86-64-combined-ext4.img
+```
+
+### Convert OpenWRT Image to VirtualBox VDI
+
+Since VirtualBox does not directly support .img files, the image was converted to .vdi format using VBoxManage.
+
+Conversion Command
+```
+"VBoxManage.exe" convertdd \
+"Lab\openwrt-19.07.10-x86-64-combined-ext4.img" \
+"lab\openwrt.vdi"
+```
+convertdd: converts raw disk images to VirtualBox disk format
+
+### Resize OpenWRT Virtual Disk
+
+After conversion, the virtual disk size was increased to ensure sufficient storage.
+```
+"VBoxManage.exe" modifyhd --resize 512 \
+"lab\openwrt.vdi"
+```
+Resizes the virtual disk to 512 MB
+
+Required for package installation and logging
+
+Must be done before booting the VM
+
+#### Virtual Machine Configuration (Summary)
++ Hypervisor-> Oracle VirtualBox
++ OpenWRT Version->19.07.10
++ Disk Format->VDI
++ Disk Size->512 MB
++ Network Interfaces->Public LAN + Private Monitoring
+  
 ## ⚙️ Configuration Steps
 
 ### 1 OpenWRT – Traffic Mirroring config
@@ -81,3 +126,29 @@ See:
 ```text
 kali-tests/README.md
 ```
+
+## 🛠️ Maintenance & Troubleshooting Notes
+### Disk Space Cleanup (Ubuntu VM)
+
+If the Ubuntu virtual machine disk grows too large or cannot be compacted properly, use the following procedure.
+
+#### 1. Zero free space inside the Ubuntu VM
+
+This helps VirtualBox detect unused disk space.
+```
+sudo dd if=/dev/zero of=/zerofile bs=10M status=progress
+sudo rm /zerofile
+sync
+```
+
+⚠️ This operation may take some time depending on disk size.
+
+#### 2. Compact the VirtualBox disk (from Windows host)
+
+After shutting down the VM, run the following command on the host machine:
+
+"VBoxManage.exe" modifymedium disk "lab\Ubuntu_22.04_VB_LinuxVMImages.COM.vdi" --compact
+
+* The VM must be powered off before running the --compact command.
+* This operation reduces the physical size of the .vdi file on disk.
+* Useful when Docker, logs, or IDS data (Suricata / Wazuh) significantly increase disk usage.
